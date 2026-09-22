@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PM SHRI Kendriya Vidyalaya Ramgarh Cantt — Website Content Manager</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0b3c74;
+    --navy-dark:#082a52;
+    --teal:#14958f;
+    --teal-light:#5fd0c4;
+    --saffron:#f28c28;
+    --leaf:#3e9a4f;
+    --plum:#7a4fb5;
+    --gold:#b8860b;
+    --bg:#f6f8fa;
+    --card:#ffffff;
+    --ink:#152437;
+    --ink-soft:#4a5b6d;
+    --line:#e1e8ee;
+    --radius:16px;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Source Sans 3', system-ui, sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.brand{font-family:'Poppins',sans-serif;}
+  .topbar{
+    height:10px;
+    background:linear-gradient(90deg,var(--navy) 0%, var(--teal) 60%, var(--teal-light) 100%);
+  }
+  header.hero{
+    padding:38px 24px 28px;
+    text-align:center;
+    background:linear-gradient(180deg,#ffffff 0%, #eef4f8 100%);
+    border-bottom:1px solid var(--line);
+  }
+  .hero .tag{
+    display:inline-block;
+    font-size:13px;
+    letter-spacing:.02em;
+    color:var(--teal);
+    background:#e6f6f4;
+    border:1px solid #cdeae6;
+    padding:5px 14px;
+    border-radius:999px;
+    margin-bottom:14px;
+    font-weight:600;
+  }
+  .hero h1{
+    font-size:clamp(28px,4vw,42px);
+    font-weight:800;
+    margin:0 0 8px;
+    color:var(--navy-dark);
+    line-height:1.15;
+  }
+  .hero h1 span{color:var(--teal);}
+  .hero p{
+    max-width:640px;
+    margin:0 auto;
+    color:var(--ink-soft);
+    font-size:17px;
+  }
+  #connBanner{
+    display:none;
+    max-width:900px;
+    margin:16px auto 0;
+    background:#fff4e5;
+    border:1px solid #f3cf9c;
+    color:#7a4a00;
+    padding:12px 18px;
+    border-radius:10px;
+    font-size:14.5px;
+  }
+  nav.tabs{
+    position:sticky; top:0; z-index:20;
+    display:flex;
+    gap:6px;
+    overflow-x:auto;
+    padding:14px 18px;
+    background:var(--card);
+    border-bottom:1px solid var(--line);
+    box-shadow:0 2px 10px rgba(11,60,116,0.05);
+  }
+  nav.tabs button{
+    flex:0 0 auto;
+    font-family:'Poppins',sans-serif;
+    font-weight:600;
+    font-size:15px;
+    padding:11px 20px;
+    border-radius:999px;
+    border:1.5px solid var(--line);
+    background:#fff;
+    color:var(--ink-soft);
+    cursor:pointer;
+    transition:.15s ease;
+    white-space:nowrap;
+  }
+  nav.tabs button:hover{border-color:var(--teal);color:var(--navy);}
+  nav.tabs button.active{
+    background:var(--navy);
+    border-color:var(--navy);
+    color:#fff;
+  }
+  main{max-width:1080px;margin:0 auto;padding:32px 20px 80px;}
+  .panel{display:none;}
+  .panel.active{display:block;}
+  .panel-head{margin-bottom:22px;}
+  .panel-head h2{font-size:26px;margin:0 0 6px;color:var(--navy-dark);font-weight:700;}
+  .panel-head p{margin:0;color:var(--ink-soft);font-size:15px;}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(380px,1fr));gap:20px;}
+  .card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-left:6px solid var(--accent, var(--teal));
+    border-radius:var(--radius);
+    padding:22px 22px 20px;
+    box-shadow:0 1px 3px rgba(11,60,116,0.05);
+  }
+  .card h3{font-size:18px;margin:0 0 4px;color:var(--navy-dark);}
+  .teacher-tag{
+    display:inline-block;
+    font-size:12.5px;
+    font-weight:600;
+    color:var(--teal);
+    background:#e9f7f5;
+    padding:3px 10px;
+    border-radius:999px;
+    margin-bottom:12px;
+  }
+  .teacher-tag.unassigned{color:#8a8a8a;background:#f0f0f0;}
+  textarea{
+    width:100%;
+    min-height:150px;
+    resize:vertical;
+    font-family:'Source Sans 3',sans-serif;
+    font-size:15px;
+    line-height:1.55;
+    padding:12px 14px;
+    border:1.5px solid var(--line);
+    border-radius:10px;
+    color:var(--ink);
+    background:#fbfcfd;
+  }
+  textarea:focus{outline:none;border-color:var(--teal);background:#fff;}
+  .meta-row{
+    display:flex;justify-content:space-between;align-items:center;
+    margin-top:8px;font-size:12.5px;color:var(--ink-soft);
+  }
+  .meta-row .warn{color:#c0392b;font-weight:600;}
+  .photo-row{
+    display:flex;align-items:center;gap:14px;margin-top:14px;
+  }
+  .thumb{
+    width:64px;height:64px;border-radius:10px;object-fit:cover;
+    border:1px solid var(--line);background:#f0f2f4;flex:0 0 auto;
+  }
+  .thumb.passport{width:74px;height:96px;border-radius:6px;}
+  input[type=file]{
+    font-size:13px;color:var(--ink-soft);
+  }
+  .card-foot{display:flex;justify-content:flex-end;align-items:center;gap:10px;margin-top:16px;}
+  .save-status{font-size:13px;color:var(--leaf);opacity:0;transition:opacity .3s;}
+  .save-status.show{opacity:1;}
+button.save-btn{
+    font-family:'Poppins',sans-serif;
+    font-weight:600;
+    font-size:14px;
+    padding:10px 22px;
+    border:none;
+    border-radius:999px;
+    background:var(--navy);
+    color:#fff;
+    cursor:pointer;
+    transition:.15s;
+  }
+button.save-btn:hover{background:var(--navy-dark);}
+button.save-btn:disabled{background:#b7c1cb;cursor:progress;}
+  .teacher-card{max-width:420px;}
+  .teacher-card input[type=text]{
+    width:100%;padding:11px 13px;font-size:15px;border:1.5px solid var(--line);
+    border-radius:10px;margin-bottom:12px;font-family:'Source Sans 3',sans-serif;
+  }
+  .teacher-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:18px;margin-top:26px;}
+  .teacher-mini{text-align:center;font-size:13px;color:var(--ink-soft);}
+  .teacher-mini img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:8px;border:1px solid var(--line);margin-bottom:6px;background:#f0f2f4;}
+  footer{text-align:center;padding:30px 20px;color:#9fb0bf;font-size:13px;}
+</style>
+</head>
+<body>
+<div class="topbar"></div>
+<header class="hero">
+  <span class="tag">PM SHRI KENDRIYA VIDYALAYA RAMGARH CANTT</span>
+  <h1>Website <span>Content</span> Manager</h1>
+  <p>Every teacher can add or update the write-up and photos for her section below. Nothing here is compulsory — fill in only what applies to you, whenever it's convenient.</p>
+  <div id="connBanner"></div>
+</header>
+<nav class="tabs" id="tabs"></nav>
+<main id="panels"></main>
+<footer>Content is saved to the school's Google Sheet and reflects on the website automatically.</footer>
+<script>
+const APP_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwHuzfD_D-jZ-BVQMSZUAxIBaUBHUY_36MoT-fmoTgNP3X0toaN8GsRfXcz7JJbURVO/exec"; // e.g. "https://script.google"
+const WORD_LIMIT = 2000;
+const CATEGORIES = [
+  {
+    key: "academic", title: "Academic Overview", accent: "var(--navy)",
+    desc: "Planner, results, academic programmes and student initiatives.",
+    sections: [
+      { key:"academic-planner", title:"Academic Planner" },
+      { key:"academic-result", title:"Academic Result" },
+      { key:"bal-vatika", title:"Bal Vatika" },
+      { key:"nipun-lakshya", title:"Nipun Lakshya" },
+      { key:"calp", title:"Compensation of Academic Loss Programme (CALP)" },
+      { key:"study-materials", title:"Study Materials" },
+      { key:"workshops-trainings", title:"Workshops & Trainings" },
+      { key:"student-council", title:"Student Council" },
+      { key:"know-your-school", title:"Know Your School" }
+    ]
+  },
+  {
+    key: "infrastructure", title: "Infrastructure", accent: "var(--teal)",
+    desc: "Labs, library, sports facilities and campus initiatives.",
+    sections: [
+      { key:"atal-tinkering-lab", title:"Atal Tinkering Lab" },
+      { key:"digital-language-lab", title:"Digital Language Lab" },
+      { key:"ict-eclassrooms-labs", title:"ICT – eClassrooms & Labs" },
+      { key:"library", title:"Library" },
+      { key:"labs-pcb", title:"Labs – Physics / Chemistry / Biology" },
+      { key:"building-bala", title:"Building & BaLA Initiatives" },
+      { key:"sports-infrastructure", title:"Sports Infrastructure (Play Fields)" },
+      { key:"sop-ndma", title:"SOP / NDMA" }
+    ]
+  },
+  {
+    key: "activities", title: "Activities", accent: "var(--saffron)",
+    desc: "Sports, excursions, olympiads and student events.",
+    sections: [
+      { key:"sports", title:"Sports" },
+      { key:"ncc-scout-guides", title:"NCC / Scout & Guides" },
+      { key:"education-excursion", title:"Education Excursion" },
+      { key:"olympiads", title:"Olympiads" },
+      { key:"exhibition", title:"Exhibition – NCSC / Science / Etc" },
+      { key:"ek-bharat-shrestha-bharat", title:"Ek Bharat Shrestha Bharat" },
+      { key:"art-craft", title:"Art & Craft" },
+      { key:"fun-day", title:"Fun Day" },
+      { key:"youth-parliament", title:"Youth Parliament" }
+    ]
+  },
+  {
+    key: "initiatives", title: "Initiatives", accent: "var(--leaf)",
+    desc: "Government schemes and school-led programmes.",
+    sections: [
+      { key:"pm-shri-schools", title:"PM SHRI Schools" },
+      { key:"skill-education", title:"Skill Education" },
+      { key:"guidance-counselling", title:"Guidance & Counselling" },
+      { key:"community-participation", title:"Community Participation" },
+      { key:"vidyanjali", title:"Vidyanjali" },
+      { key:"publication", title:"Publication" },
+      { key:"news-letter", title:"News Letter" },
+      { key:"vidyalaya-patrika", title:"Vidyalaya Patrika" }
+    ]
+  },
+  {
+    key: "innovation", title: "Innovation", accent: "var(--plum)",
+    desc: "Showcase an innovative practice, project or idea from the Vidyalaya (up to 2000 words).",
+    sections: [
+      { key:"innovation", title:"Innovation" }
+    ]
+  }
+];
+let CONTENT = {};   // sectionKey -> {text, photoUrl}
+let ASSIGN = {};    // sectionKey -> teacherName
+let TEACHERS = [];  // [{TeacherName, PhotoURL}]
+function wordCount(str){
+  return (str.trim().match(/\S+/g) || []).length;
+}
+function fileToBase64(file){
+  return new Promise((resolve, reject)=>{
+    const r = new FileReader();
+    r.onload = ()=> resolve(r.result);
+    r.onerror = reject;
+    r.readAsDataURL(file);
+  });
+}
+async function loadData(){
+  if(!APP_SCRIPT_URL){
+    const b = document.getElementById('connBanner');
+b.style.display = 'block';
+    b.textContent = "This app isn't connected to the school's Google Sheet yet — entries will not be saved until the APP_SCRIPT_URL is set in index.html. See the setup guide.";
+    return;
+  }
+  try{
+    const res = await fetch(APP_SCRIPT_URL);
+    const data = await res.json();
+    (data.content || []).forEach(r => { CONTENT[r.SectionKey] = { text: r.Text || '', photoUrl: r.PhotoURL || '' }; });
+    (data.assign || []).forEach(r => { ASSIGN[r.SectionKey] = r.TeacherName || ''; });
+    TEACHERS = data.teachers || [];
+  }catch(err){
+    const b = document.getElementById('connBanner');
+b.style.display = 'block';
+    b.textContent = "Couldn't reach the Google Sheet right now — you can still write your text below, but please save again once the connection is back.";
+  }
+}
+function sectionCard(cat, sec){
+  const c = CONTENT[sec.key] || {text:'', photoUrl:''};
+  const teacher = ASSIGN[sec.key];
+  const div = document.createElement('div');
+  div.className = 'card';
+div.style.setProperty('--accent', cat.accent);
+  div.innerHTML = `
+    <h3>${sec.title}</h3>
+    <span class="teacher-tag ${teacher ? '' : 'unassigned'}">${teacher ? 'Assigned to: ' + teacher : 'Not yet assigned'}</span>
+    <textarea placeholder="Write about &quot;${sec.title}&quot; here — around 10 to 20 lines works well (max ${WORD_LIMIT} words). Leave blank if not applicable.">${c.text}</textarea>
+    <div class="meta-row"><span class="wc">0 / ${WORD_LIMIT} words</span><span class="save-status">Saved ✓</span></div>
+    <div class="photo-row">
+      <img class="thumb" src="${c.photoUrl || ''}" onerror="this.style.visibility='hidden'" style="${c.photoUrl ? '' : 'visibility:hidden'}">
+      <input type="file" accept="image/*" class="photo-input">
+    </div>
+    <div class="card-foot">
+      <button class="save-btn">Save</button>
+    </div>
+  `;
+  const ta = div.querySelector('textarea');
+  const wc = div.querySelector('.wc');
+  const updateWc = ()=>{
+    const n = wordCount(ta.value);
+    wc.textContent = `${n} / ${WORD_LIMIT} words`;
+    wc.className = 'wc' + (n > WORD_LIMIT ? ' warn' : '');
+  };
+  ta.addEventListener('input', updateWc);
+  updateWc();
+  const fileInput = div.querySelector('.photo-input');
+  const thumb = div.querySelector('.thumb');
+  let pendingPhoto = null;
+  fileInput.addEventListener('change', async ()=>{
+    const f = fileInput.files[0];
+    if(!f) return;
+    pendingPhoto = await fileToBase64(f);
+    thumb.src = pendingPhoto;
+thumb.style.visibility = 'visible';
+  });
+  const btn = div.querySelector('.save-btn');
+  const status = div.querySelector('.save-status');
+  btn.addEventListener('click', async ()=>{
+    if(!APP_SCRIPT_URL){
+      alert("This app isn't connected to the Google Sheet yet. Ask the site admin to finish setup (see README).");
+      return;
+    }
+    btn.disabled = true; btn.textContent = 'Saving…';
+    try{
+      const res = await fetch(APP_SCRIPT_URL, {
+        method:'POST',
+        headers:{ 'Content-Type':'text/plain;charset=utf-8' },
+        body: JSON.stringify({
+          action:'saveSection',
+          sectionKey: sec.key,
+          sectionTitle: sec.title,
+          text: ta.value,
+          teacherName: teacher || '',
+          existingPhotoUrl: c.photoUrl || '',
+          photoBase64: pendingPhoto,
+          photoName: fileInput.files[0] ? fileInput.files[0].name : ''
+        })
+      });
+      const result = await res.json();
+      if(!result.ok){
+        alert('Save failed: ' + (result.error || 'unknown error') + '\n\nCheck DRIVE_FOLDER_ID in Code.gs and that the deployment is up to date.');
+      } else {
+        status.textContent = 'Saved ✓';
+        status.classList.add('show');
+        setTimeout(()=> status.classList.remove('show'), 2200);
+      }
+    }catch(err){
+      alert('Could not save right now — please check your internet connection, the APP_SCRIPT_URL, and try again.\n\n' + err);
+    }finally{
+      btn.disabled = false; btn.textContent = 'Save';
+    }
+  });
+  return div;
+}
+function teacherPanel(){
+  const wrap = document.createElement('div');
+  wrap.innerHTML = `
+    <div class="panel-head">
+      <h2>Teacher Photos</h2>
+      <p>Upload a passport-size photo. Type your name exactly as it should appear on the website.</p>
+    </div>
+    <div class="card teacher-card" style="--accent:var(--gold)">
+      <input type="text" placeholder="Your full name" class="t-name" list="teacherNames">
+      <datalist id="teacherNames"></datalist>
+      <div class="photo-row">
+        <img class="thumb passport" src="">
+        <input type="file" accept="image/*" class="t-photo">
+      </div>
+      <div class="card-foot">
+        <button class="save-btn">Save Photo</button>
+      </div>
+    </div>
+    <div class="teacher-grid" id="teacherGrid"></div>
+  `;
+  const dl = wrap.querySelector('#teacherNames');
+  const namesSeen = new Set();
+  Object.values(ASSIGN).forEach(n=>{ if(n) namesSeen.add(n); });
+  TEACHERS.forEach(t=>{ if(t.TeacherName) namesSeen.add(t.TeacherName); });
+  namesSeen.forEach(n=>{
+    const o = document.createElement('option'); o.value = n; dl.appendChild(o);
+  });
+  const grid = wrap.querySelector('#teacherGrid');
+  TEACHERS.filter(t=>t.PhotoURL).forEach(t=>{
+    const d = document.createElement('div');
+    d.className = 'teacher-mini';
+    d.innerHTML = `<img src="${t.PhotoURL}"><div>${t.TeacherName}</div>`;
+    grid.appendChild(d);
+  });
+  const nameInput = wrap.querySelector('.t-name');
+  const fileInput = wrap.querySelector('.t-photo');
+  const thumb = wrap.querySelector('.thumb');
+  let pendingPhoto = null;
+  fileInput.addEventListener('change', async ()=>{
+    const f = fileInput.files[0];
+    if(!f) return;
+    pendingPhoto = await fileToBase64(f);
+    thumb.src = pendingPhoto;
+thumb.style.visibility = 'visible';
+  });
+  const btn = wrap.querySelector('.save-btn');
+  btn.addEventListener('click', async ()=>{
+    if(!APP_SCRIPT_URL){ alert("This app isn't connected to the Google Sheet yet."); return; }
+    if(!nameInput.value.trim()){ alert('Please enter your name.'); return; }
+    if(!pendingPhoto){ alert('Please choose a photo.'); return; }
+    btn.disabled = true; btn.textContent = 'Saving…';
+    try{
+      const res = await fetch(APP_SCRIPT_URL, {
+        method:'POST',
+        headers:{ 'Content-Type':'text/plain;charset=utf-8' },
+        body: JSON.stringify({
+          action:'saveTeacherPhoto',
+          teacherName: nameInput.value.trim(),
+          photoBase64: pendingPhoto,
+          photoName: fileInput.files[0].name
+        })
+      });
+      const result = await res.json();
+      if(!result.ok){
+        alert('Save failed: ' + (result.error || 'unknown error') + '\n\nCheck DRIVE_FOLDER_ID in Code.gs and that the deployment is up to date.');
+      } else {
+        alert('Photo saved. Thank you!');
+      }
+    }catch(err){
+      alert('Could not save right now — please try again.\n\n' + err);
+    }finally{
+      btn.disabled = false; btn.textContent = 'Save Photo';
+    }
+  });
+  return wrap;
+}
+function build(){
+  const tabsEl = document.getElementById('tabs');
+  const panelsEl = document.getElementById('panels');
+  const allTabs = [...CATEGORIES.map(c=>({key:c.key, title:c.title})), {key:'teachers', title:'Teacher Photos'}];
+  allTabs.forEach((t, i)=>{
+    const b = document.createElement('button');
+    b.textContent = t.title;
+    b.dataset.key = t.key;
+    if(i===0) b.classList.add('active');
+    b.addEventListener('click', ()=>{
+      tabsEl.querySelectorAll('button').forEach(x=>x.classList.remove('active'));
+      b.classList.add('active');
+      panelsEl.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+      document.getElementById('panel-'+t.key).classList.add('active');
+    });
+    tabsEl.appendChild(b);
+  });
+  CATEGORIES.forEach((cat, i)=>{
+    const panel = document.createElement('div');
+    panel.className = 'panel' + (i===0 ? ' active' : '');
+panel.id = 'panel-' + cat.key;
+    panel.innerHTML = `<div class="panel-head"><h2>${cat.title}</h2><p>${cat.desc}</p></div>`;
+    const grid = document.createElement('div');
+    grid.className = 'grid';
+    cat.sections.forEach(sec => grid.appendChild(sectionCard(cat, sec)));
+    panel.appendChild(grid);
+    panelsEl.appendChild(panel);
+  });
+  const teacherP = document.createElement('div');
+  teacherP.className = 'panel';
+teacherP.id = 'panel-teachers';
+  teacherP.appendChild(teacherPanel());
+  panelsEl.appendChild(teacherP);
+}
+(async function init(){
+  await loadData();
+  build();
+})();
+</script>
+</body>
+</html>
